@@ -1,5 +1,11 @@
 const { src, dest, watch, series } = require('gulp');
 
+// HTML
+function html() {
+    return src('index.html')
+        .pipe( dest('build') )
+}
+
 // CSS y SASS
 const sass = require('gulp-sass')(require('sass'));
 const postcss = require('gulp-postcss');
@@ -48,15 +54,17 @@ function versionAvif() {
 }
 
 function dev() {
+    watch( 'index.html', html );
     watch( 'src/scss/**/*.scss', css );
     watch( 'src/img/**/*', imagenes );
 }
 
 
 exports.css = css;
+exports.html = html;
 exports.dev = dev;
 exports.imagenes = imagenes;
 exports.versionWebp = versionWebp;
 exports.versionAvif = versionAvif;
-exports.build = series( imagenes, versionWebp, versionAvif, css );
-exports.default = series( imagenes, versionWebp, versionAvif, css, dev  );
+exports.build = series( html, imagenes, versionWebp, versionAvif, css );
+exports.default = series( html, imagenes, versionWebp, versionAvif, css, dev  );
