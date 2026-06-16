@@ -58,4 +58,5 @@ exports.dev = dev;
 exports.imagenes = imagenes;
 exports.versionWebp = versionWebp;
 exports.versionAvif = versionAvif;
+exports.build = series( imagenes, versionWebp, versionAvif, css );
 exports.default = series( imagenes, versionWebp, versionAvif, css, dev  );
